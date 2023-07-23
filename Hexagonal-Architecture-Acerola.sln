@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acerola.WebApi", "src\Acerola.WebApi\Acerola.WebApi.csproj", "{38238DFF-BA27-4472-AB80-ADF84A6E4B38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acerola.Domain", "src\Acerola.Domain\Acerola.Domain.csproj", "{159B3693-A2BD-4B93-8353-5E794E4EB3C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38238DFF-BA27-4472-AB80-ADF84A6E4B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38238DFF-BA27-4472-AB80-ADF84A6E4B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38238DFF-BA27-4472-AB80-ADF84A6E4B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38238DFF-BA27-4472-AB80-ADF84A6E4B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159B3693-A2BD-4B93-8353-5E794E4EB3C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159B3693-A2BD-4B93-8353-5E794E4EB3C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159B3693-A2BD-4B93-8353-5E794E4EB3C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159B3693-A2BD-4B93-8353-5E794E4EB3C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D00B0E2-2F01-4F3B-8EE5-9F3128133BF2}
+	EndGlobalSection
+EndGlobal
