@@ -7,6 +7,7 @@ using Acerola.Application.Repositories;
 using Acerola.Infrastructure.EntityFrameworkDataAccess;
 using Acerola.Infrastructure.EntityFrameworkDataAccess.Queries;
 using Acerola.Infrastructure.EntityFrameworkDataAccess.Repositories;
+using Acerola.WebApi.Filters;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,9 @@ builder.Services.AddDbContext<Context>(options =>
     options.EnableSensitiveDataLogging(true);
 });
 
+builder.Services.AddScoped<CustomExceptionFilter>();
+builder.Services.AddScoped<ValidateModelAttribute>();
+
 builder.Services.AddScoped<IAccountReadOnlyRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountWriteOnlyRepository, AccountRepository>();
 builder.Services.AddScoped<ICustomerReadOnlyRepository, CustomerRepository>();
@@ -34,7 +38,12 @@ builder.Services.AddScoped<IDepositUseCase, DepositUseCase>();
 builder.Services.AddScoped<IRegisterUseCase, RegisterUseCase>();
 builder.Services.AddScoped<IWithdrawUseCase, WithdrawUseCase>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CustomExceptionFilter>();
+    options.Filters.Add<ValidateModelAttribute>();
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
