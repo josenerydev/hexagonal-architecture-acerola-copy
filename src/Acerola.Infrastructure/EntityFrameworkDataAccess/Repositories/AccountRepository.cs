@@ -55,6 +55,9 @@ namespace Acerola.Infrastructure.EntityFrameworkDataAccess.Repositories
                 .Accounts
                 .FindAsync(id);
 
+            if (account == null)
+                throw new AccountNotFoundException($"The account {id} does not exists or is not processed yet.");
+
             List<Entities.Credit> credits = await _context
                 .Credits
                 .Where(c => c.AccountId == id)
