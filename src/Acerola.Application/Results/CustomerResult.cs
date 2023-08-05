@@ -2,8 +2,8 @@
 {
     public sealed class CustomerResult
     {
-        public Guid CusomerId { get; }
-        public string Pesonnummer { get; }
+        public Guid CustomerId { get; }
+        public string Personnummer { get; }
         public string Name { get; }
         public IReadOnlyList<AccountResult> Accounts { get; }
 
@@ -13,8 +13,8 @@
             string name,
             List<AccountResult> accounts)
         {
-            CusomerId = customerId;
-            Pesonnummer = personnummer;
+            CustomerId = customerId;
+            Personnummer = personnummer;
             Name = name;
             Accounts = accounts;
         }
