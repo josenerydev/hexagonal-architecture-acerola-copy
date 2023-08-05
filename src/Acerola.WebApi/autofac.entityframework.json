@@ -1,0 +1,21 @@
+{
+  "defaultAssembly": "Acerola.Infrastructure",
+  "modules": [
+    {
+      "type": "Acerola.Infrastructure.Modules.WebApiModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "Acerola.Infrastructure.Modules.ApplicationModule",
+      "properties": {
+      }
+    },
+    {
+      "type": "Acerola.Infrastructure.EntityFrameworkDataAccess.Module",
+      "properties": {
+        "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=AcerolaDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+      }
+    }
+  ]
+}

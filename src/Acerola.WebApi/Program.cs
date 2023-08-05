@@ -1,52 +1,39 @@
-using Acerola.Application.Commands.CloseAccount;
-using Acerola.Application.Commands.Deposit;
-using Acerola.Application.Commands.Register;
-using Acerola.Application.Commands.Withdraw;
-using Acerola.Application.Queries;
-using Acerola.Application.Repositories;
-using Acerola.Infrastructure.EntityFrameworkDataAccess;
-using Acerola.Infrastructure.EntityFrameworkDataAccess.Queries;
-using Acerola.Infrastructure.EntityFrameworkDataAccess.Repositories;
 using Acerola.WebApi.Filters;
 
-using Microsoft.EntityFrameworkCore;
+using Autofac;
+using Autofac.Configuration;
+using Autofac.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<Context>(options =>
-{
-    options.UseSqlServer(connectionString);
-    options.EnableSensitiveDataLogging(true);
-});
-
-builder.Services.AddScoped<CustomExceptionFilter>();
-builder.Services.AddScoped<ValidateModelAttribute>();
-
-builder.Services.AddScoped<IAccountReadOnlyRepository, AccountRepository>();
-builder.Services.AddScoped<IAccountWriteOnlyRepository, AccountRepository>();
-builder.Services.AddScoped<ICustomerReadOnlyRepository, CustomerRepository>();
-builder.Services.AddScoped<ICustomerWriteOnlyRepository, CustomerRepository>();
-
-builder.Services.AddScoped<IAccountsQueries, AccountsQueries>();
-builder.Services.AddScoped<ICustomersQueries, CustomersQueries>();
-
-builder.Services.AddScoped<ICloseAccountUseCase, CloseAccountUseCase>();
-builder.Services.AddScoped<IDepositUseCase, DepositUseCase>();
-builder.Services.AddScoped<IRegisterUseCase, RegisterUseCase>();
-builder.Services.AddScoped<IWithdrawUseCase, WithdrawUseCase>();
-
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<CustomExceptionFilter>();
-    options.Filters.Add<ValidateModelAttribute>();
-});
+builder.Services.AddControllers();
+//builder.Services.AddControllers(options =>
+//{
+//    options.Filters.Add<CustomExceptionFilter>();
+//    options.Filters.Add<ValidateModelAttribute>();
+//});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Switch to Autofac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+        // Add the configuration to the ConfigurationBuilder.
+        var config = new ConfigurationBuilder();
+        // config.AddJsonFile comes from Microsoft.Extensions.Configuration.Json
+        config.AddJsonFile("autofac.json");
+        config.AddJsonFile("autofac.entityframework.json");
+
+        // Register the ConfigurationModule with Autofac.
+        var module = new ConfigurationModule(config.Build());
+        containerBuilder.RegisterModule(module);
+
+        // Populate the services from the builder to the container
+        containerBuilder.Populate(builder.Services);
+    });
 
 var app = builder.Build();
 
