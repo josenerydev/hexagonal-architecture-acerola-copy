@@ -3,7 +3,7 @@ using Acerola.Application.Results;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Acerola.Infrastructure.EntityFrameworkDataAccess.Queries
+namespace Acerola.Infrastructure.Queries
 {
     public class CustomersQueries : ICustomersQueries
     {

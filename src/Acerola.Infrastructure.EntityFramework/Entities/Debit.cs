@@ -1,4 +1,4 @@
-﻿namespace Acerola.Infrastructure.EntityFrameworkDataAccess.Entities
+﻿namespace Acerola.Infrastructure.Entities
 {
     public class Debit
     {

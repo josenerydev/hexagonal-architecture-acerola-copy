@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Acerola.Application\Acerola.Application.csproj" />
-    <ProjectReference Include="..\Acerola.Infrastructure\Acerola.Infrastructure.csproj" />
+    <ProjectReference Include="..\Acerola.Infrastructure.EntityFramework\Acerola.Infrastructure.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

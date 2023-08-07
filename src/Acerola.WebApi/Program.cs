@@ -4,9 +4,9 @@ using Acerola.Application.Commands.Register;
 using Acerola.Application.Commands.Withdraw;
 using Acerola.Application.Queries;
 using Acerola.Application.Repositories;
-using Acerola.Infrastructure.EntityFrameworkDataAccess;
-using Acerola.Infrastructure.EntityFrameworkDataAccess.Queries;
-using Acerola.Infrastructure.EntityFrameworkDataAccess.Repositories;
+using Acerola.Infrastructure;
+using Acerola.Infrastructure.Queries;
+using Acerola.Infrastructure.Repositories;
 using Acerola.WebApi.Filters;
 
 using Microsoft.EntityFrameworkCore;

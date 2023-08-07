@@ -4,7 +4,11 @@ using Acerola.Domain.Accounts;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace Acerola.Infrastructure.EntityFrameworkDataAccess.Queries
+using Account = Acerola.Domain.Accounts.Account;
+using Credit = Acerola.Domain.Accounts.Credit;
+using Debit = Acerola.Domain.Accounts.Debit;
+
+namespace Acerola.Infrastructure.Queries
 {
     public class AccountsQueries : IAccountsQueries
     {

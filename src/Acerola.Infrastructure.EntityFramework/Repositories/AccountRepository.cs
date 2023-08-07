@@ -4,7 +4,7 @@ using Acerola.Domain.Accounts;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
-namespace Acerola.Infrastructure.EntityFrameworkDataAccess.Repositories
+namespace Acerola.Infrastructure.Repositories
 {
     public class AccountRepository : IAccountReadOnlyRepository, IAccountWriteOnlyRepository
     {
