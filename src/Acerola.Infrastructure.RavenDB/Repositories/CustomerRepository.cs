@@ -20,7 +20,7 @@ namespace Acerola.Infrastructure.Repositories
             {
                 Entities.Customer customerEntity = new Entities.Customer()
                 {
-                    Id = customer.Id,
+                    Id = customer.Id.ToString(),
                     Name = customer.Name,
                     SSN = customer.SSN
                 };
@@ -39,17 +39,17 @@ namespace Acerola.Infrastructure.Repositories
                 if (customer == null)
                     throw new CustomerNotFoundException($"The customer {id} does not exist or is not processed yet.");
 
-                List<Guid> accounts = await session
+                List<string> accounts = await session
                     .Query<Entities.Account>()
-                    .Where(a => a.CustomerId == id)
+                    .Where(a => a.CustomerId == id.ToString())
                     .Select(a => a.Id)
                     .ToListAsync();
 
                 AccountCollection accountCollection = new AccountCollection();
                 foreach (var accountId in accounts)
-                    accountCollection.Add(accountId);
+                    accountCollection.Add(Guid.Parse(accountId));
 
-                return Customer.Load(customer.Id, customer.Name, customer.SSN, accountCollection);
+                return Customer.Load(Guid.Parse(customer.Id), customer.Name, customer.SSN, accountCollection);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Acerola.Infrastructure.Repositories
             {
                 Entities.Customer customerEntity = new Entities.Customer()
                 {
-                    Id = customer.Id,
+                    Id = customer.Id.ToString(),
                     Name = customer.Name,
                     SSN = customer.SSN
                 };

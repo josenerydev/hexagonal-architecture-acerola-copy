@@ -9,19 +9,32 @@ using Acerola.Infrastructure.Queries;
 using Acerola.Infrastructure.Repositories;
 using Acerola.WebApi.Filters;
 
-using Microsoft.EntityFrameworkCore;
+using Raven.Client.Documents;
+
+//using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<Context>(options =>
+//builder.Services.AddDbContext<Context>(options =>
+//{
+//    options.UseSqlServer(connectionString);
+//    options.EnableSensitiveDataLogging(true);
+//});
+
+builder.Services.AddSingleton<IDocumentStore>(ctx =>
 {
-    options.UseSqlServer(connectionString);
-    options.EnableSensitiveDataLogging(true);
-});
+    IDocumentStore store = new DocumentStore
+    {
+        Urls = new[] { "http://localhost:8080" },
+        Database = "AcerolaDB"
+    };
 
+    store.Initialize();
+
+    return store;
+});
 builder.Services.AddScoped<CustomExceptionFilter>();
 builder.Services.AddScoped<ValidateModelAttribute>();
 

@@ -27,19 +27,19 @@ namespace Acerola.Infrastructure.Queries
 
                 List<Entities.Account> accounts = await session
                     .Query<Entities.Account>()
-                    .Where(e => e.CustomerId == customerId)
+                    .Where(e => e.CustomerId == customerId.ToString())
                     .ToListAsync();
 
                 List<AccountResult> accountsResult = new List<AccountResult>();
 
                 foreach (Entities.Account account in accounts)
                 {
-                    AccountResult accountResult = await _accountsQueries.GetAccount(account.Id);
+                    AccountResult accountResult = await _accountsQueries.GetAccount(Guid.Parse(account.Id));
                     accountsResult.Add(accountResult);
                 }
 
                 CustomerResult customerResult = new CustomerResult(
-                    customer.Id, customer.Name, customer.SSN,
+                    Guid.Parse(customer.Id), customer.Name, customer.SSN,
                     accountsResult);
 
                 return customerResult;

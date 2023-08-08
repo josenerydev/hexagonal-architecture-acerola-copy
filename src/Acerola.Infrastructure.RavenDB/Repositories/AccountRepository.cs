@@ -20,14 +20,14 @@ namespace Acerola.Infrastructure.Repositories
             {
                 Entities.Account accountEntity = new Entities.Account
                 {
-                    Id = account.Id,
-                    CustomerId = account.CustomerId
+                    Id = account.Id.ToString(),
+                    CustomerId = account.CustomerId.ToString()
                 };
 
                 Entities.Credit creditEntity = new Entities.Credit
                 {
-                    Id = credit.Id,
-                    AccountId = credit.AccountId,
+                    Id = credit.Id.ToString(),
+                    AccountId = credit.AccountId.ToString(),
                     Amount = credit.Amount,
                     TransactionDate = credit.TransactionDate
                 };
@@ -44,7 +44,7 @@ namespace Acerola.Infrastructure.Repositories
             using (var session = _documentStore.OpenAsyncSession())
             {
                 var creditToDelete = await session.Query<Entities.Credit>()
-                                                  .Where(c => c.AccountId == account.Id)
+                                                  .Where(c => c.AccountId == account.ToString())
                                                   .ToListAsync();
 
                 foreach (var credit in creditToDelete)
@@ -53,7 +53,7 @@ namespace Acerola.Infrastructure.Repositories
                 }
 
                 var debitToDelete = await session.Query<Entities.Debit>()
-                                                  .Where(d => d.AccountId == account.Id)
+                                                  .Where(d => d.AccountId == account.ToString())
                                                   .ToListAsync();
 
                 foreach (var debit in debitToDelete)
@@ -77,12 +77,12 @@ namespace Acerola.Infrastructure.Repositories
 
                 List<Entities.Credit> credits = await session
                     .Query<Entities.Credit>()
-                    .Where(c => c.AccountId == id)
+                    .Where(c => c.AccountId == id.ToString())
                     .ToListAsync();
 
                 List<Entities.Debit> debits = await session
                     .Query<Entities.Debit>()
-                    .Where(d => d.AccountId == id)
+                    .Where(d => d.AccountId == id.ToString())
                     .ToListAsync();
 
                 List<ITransaction> transactions = new List<ITransaction>();
@@ -90,8 +90,8 @@ namespace Acerola.Infrastructure.Repositories
                 foreach (Entities.Credit transactionData in credits)
                 {
                     Credit transaction = Credit.Load(
-                        transactionData.Id,
-                        transactionData.AccountId,
+                        Guid.Parse(transactionData.Id),
+                        Guid.Parse(transactionData.AccountId),
                         transactionData.Amount,
                         transactionData.TransactionDate);
 
@@ -101,8 +101,8 @@ namespace Acerola.Infrastructure.Repositories
                 foreach (Entities.Debit transactionData in debits)
                 {
                     Debit transaction = Debit.Load(
-                        transactionData.Id,
-                        transactionData.AccountId,
+                        Guid.Parse(transactionData.Id),
+                        Guid.Parse(transactionData.AccountId),
                         transactionData.Amount,
                         transactionData.TransactionDate);
 
@@ -115,8 +115,8 @@ namespace Acerola.Infrastructure.Repositories
                 transactionCollection.Add(orderedTransactions);
 
                 Account result = Account.Load(
-                    account.Id,
-                    account.CustomerId,
+                    Guid.Parse(account.Id),
+                    Guid.Parse(account.CustomerId),
                     transactionCollection);
 
                 return result;
@@ -129,8 +129,8 @@ namespace Acerola.Infrastructure.Repositories
             {
                 Entities.Credit creditEntity = new Entities.Credit
                 {
-                    Id = credit.Id,
-                    AccountId = credit.AccountId,
+                    Id = credit.Id.ToString(),
+                    AccountId = credit.AccountId.ToString(),
                     Amount = credit.Amount,
                     TransactionDate = credit.TransactionDate
                 };
@@ -147,8 +147,8 @@ namespace Acerola.Infrastructure.Repositories
             {
                 Entities.Debit debitEntity = new Entities.Debit
                 {
-                    Id = debit.Id,
-                    AccountId = debit.AccountId,
+                    Id = debit.Id.ToString(),
+                    AccountId = debit.AccountId.ToString(),
                     Amount = debit.Amount,
                     TransactionDate = debit.TransactionDate
                 };

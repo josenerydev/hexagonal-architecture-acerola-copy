@@ -29,12 +29,12 @@ namespace Acerola.Infrastructure.Queries
 
                 List<Entities.Credit> credits = await session
                     .Query<Entities.Credit>()
-                    .Where(e => e.AccountId == accountId)
+                    .Where(e => e.AccountId == accountId.ToString())
                     .ToListAsync();
 
                 List<Entities.Debit> debits = await session
                     .Query<Entities.Debit>()
-                    .Where(e => e.AccountId == accountId)
+                    .Where(e => e.AccountId == accountId.ToString())
                     .ToListAsync();
 
                 List<ITransaction> transactions = new List<ITransaction>();
@@ -42,8 +42,8 @@ namespace Acerola.Infrastructure.Queries
                 foreach (Entities.Credit transactionData in credits)
                 {
                     Credit transaction = Credit.Load(
-                        transactionData.Id,
-                        transactionData.AccountId,
+                        Guid.Parse(transactionData.Id),
+                        Guid.Parse(transactionData.AccountId),
                         transactionData.Amount,
                         transactionData.TransactionDate);
 
@@ -53,8 +53,8 @@ namespace Acerola.Infrastructure.Queries
                 foreach (Entities.Debit transactionData in debits)
                 {
                     Debit transaction = Debit.Load(
-                        transactionData.Id,
-                        transactionData.AccountId,
+                        Guid.Parse(transactionData.Id),
+                        Guid.Parse(transactionData.AccountId),
                         transactionData.Amount,
                         transactionData.TransactionDate);
 
@@ -67,8 +67,8 @@ namespace Acerola.Infrastructure.Queries
                 transactionCollection.Add(orderedTransactions);
 
                 Account result = Account.Load(
-                    account.Id,
-                    account.CustomerId,
+                    Guid.Parse(account.Id),
+                    Guid.Parse(account.CustomerId),
                     transactionCollection);
 
                 AccountResult re = new AccountResult(result);
